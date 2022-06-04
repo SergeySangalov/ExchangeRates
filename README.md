@@ -2,7 +2,7 @@
 Consume external services using Feign client in Spring Boot
 -
 Java version: 11
--
+
 Запуск приложения с портом по умолчанию 8080
 --------------------------------------------
 java -jar ExchangeRates-0.0.1-SNAPSHOT.jar
