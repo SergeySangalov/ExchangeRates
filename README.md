@@ -36,4 +36,6 @@ docker run -dp 80:8080 exchange-rates
 -
 docker pull sergeysangalov/exchange-rates:latest
 
-Запуск приложения: docker run -p 8080:8080 --name exchange-rates sergeysangalov/exchange-rates:latest
+Запуск контейнера:
+
+docker run -p 8080:8080 --name exchange-rates sergeysangalov/exchange-rates:latest
