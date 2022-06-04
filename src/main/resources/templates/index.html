@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}" ></script>
+
+	<title>Курсы валют</title>
+</head>
+<body>
+	<div class="container-fluid">
+	<br/>
+	<div>
+		<span>Тестовое задание Альфа-Банка</span>
+	</div>
+	<div>
+		<h5>Разработал: Сангалов Сергей, июнь 2022</h5>
+	</div>
+	<br/>
+	<div class="text-center">
+		<h2>Курсы валют</h2>
+	</div>
+	<div>&nbsp;</div>
+	
+	<form th:action="@{/findAllRates}" method="post" th:object="${currency}"
+		style="max-width: 1000px; margin: 0 auto">
+
+	<div class="border border-secondary rounded p-3">			
+
+		<div class="form-group row">
+			<label class="col-sm-3 col-form-label">Валюта для сравнения:</label>
+			<div class="col-sm-6">
+				<select class="form-control" th:field="*{currency}">
+					<th:block th:each="currency : ${currencies}">
+					<option th:value="${currency}">[[${currency}]]</option>
+					</th:block>
+				</select>
+			</div>
+			<label class="col-sm-3 col-form-label">Базовая валюта: <b>USD</b></label>
+		</div>
+																		
+		<div class="text-center">
+			<input type="submit" value="Получить курсы валюты" class="btn btn-primary" />
+		</div>
+	</div>
+	</form>
+	
+	<div>&nbsp;</div>		
+	
+	<div class="text-center"><img th:src="${DownsizedMediumUrl}" /></div>
+	
+	<div class="text-center">
+		<span><b>&nbsp;</b></span>
+		<span><b>&nbsp;</b></span>
+	</div>
+	
+	
+			<div>
+			<table class="table table-striped table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th style="vertical-align: middle;"><b>Выбранная валюта</b></th>
+						<th style="vertical-align: middle;"><b>Базовая валюта</b></th>
+						<th style="vertical-align: middle;"><b>Сегодняшняя дата</b></th>
+						<th style="vertical-align: middle;"><b>Вчерашняя дата</b></th>
+						<th style="vertical-align: middle;"><b>Курс на текущую дату</b></th>
+						<th style="vertical-align: middle;"><b>Курс на вчерашнюю дату</b></th>
+						<th style="vertical-align: middle;"><b>Человек стал беднее (broke) или богаче (rich)</b></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="text-align: center"><b>[[${currencySelected}]]</b></td>
+						<td style="text-align: center"><b>[[${currencyBase}]]</b></td>
+						<td style="text-align: center"><b>[[${dateToday}]]</b></td>
+						<td style="text-align: center"><b>[[${dateYesterday}]]</b></td>
+						<td style="text-align: center"><b>[[${latestRateSelected}]]</b></td>
+						<td style="text-align: center"><b>[[${historicalRateSelected}]]</b></td>
+						<td style="text-align: center"><b>[[${tagName}]]</b></td>
+					</tr>	
+				</tbody>
+			</table>
+		</div>
+	
+	</div>
+</body>
+</html>
