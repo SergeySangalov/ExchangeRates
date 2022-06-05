@@ -16,6 +16,11 @@ java -jar ExchangeRates-0.0.1-SNAPSHOT.jar --server.port=80
 
 Доступ к приложению для порта 80: http://localhost
 
+Запуск приложения с указанием своих ID для доступа с серверам
+--------------------------------------------------------------
+
+java -jar ExchangeRates-0.0.1-SNAPSHOT.jar --server.port=80 --openexchangerates.api.key=RATES_YOUR_ID --giphy.api.key=GIPHY_YOUR_ID
+
 Создание контейнера приложения в Docker.
 -
 Находясь в корневой директории проекта (где находится файл Dockerfile), выполнить команду (точка в конце ОБЯЗАТЕЛЬНА):
