@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 
 import ru.sangalov.exchangerates.client.GiphyClient;
 import ru.sangalov.exchangerates.entity.GiphyCurrentResponse;
+import ru.sangalov.exchangerates.entity.ResponseData;
 
 @Service
 @EnableFeignClients
@@ -21,18 +22,39 @@ public class GiphyService {
 	@Autowired
 	private GiphyClient giphyClient;
 	
-	public String getGifUrl(String tagName, Model model) {
+	public String getGifUrl(String tagName, Model model, ResponseData responseData) {
 		
-		GiphyCurrentResponse giphyResponse = giphyClient.getRandomGif(giphyAppId, tagName, ratingCode);
+		GiphyCurrentResponse giphyResponse = new GiphyCurrentResponse();
 		
-		String giphyTitle = giphyResponse.getData().getTitle();
-        System.out.println("Image Title: " + giphyTitle);
-        
-        String DownsizedMediumUrl = giphyResponse.getData().getImages().getDownsizedMedium().getUrl();
-        System.out.println("Image Url: " + DownsizedMediumUrl);
-        
-        model.addAttribute("DownsizedMediumUrl", DownsizedMediumUrl);
-        return DownsizedMediumUrl;
+		// Получение gif-файла
+		try {
+			System.out.println("Request giphyResponse started...");
+			giphyResponse = giphyClient.getRandomGif(giphyAppId, tagName, ratingCode);
+			responseData.setGiphyResponse("true");
+			responseData.setGifErrorResponse("");
+			System.out.println("Request giphyResponse completed successfully.");
+			
+			String giphyTitle = giphyResponse.getData().getTitle();
+	        System.out.println("Image Title: " + giphyTitle);
+	        
+	        String DownsizedMediumUrl = giphyResponse.getData().getImages().getDownsizedMedium().getUrl();
+	        System.out.println("Image Url: " + DownsizedMediumUrl);
+	        
+	        model.addAttribute("DownsizedMediumUrl", DownsizedMediumUrl);
+	        return DownsizedMediumUrl;
+		}
+		catch (Exception e) {
+			System.out.println("Request giphyResponse ERROR: " + e.getMessage());
+			String DownsizedMediumUrl = "";
+			model.addAttribute("DownsizedMediumUrl", DownsizedMediumUrl);
+			responseData.setGiphyResponse("false");
+			responseData.setGifErrorResponse(e.getMessage());
+			return DownsizedMediumUrl;
+		}
+		finally {
+			
+		}
+			
 	}
 
 }

@@ -47,7 +47,35 @@
 	</div>
 	</form>
 	
-	<div>&nbsp;</div>		
+	<div>&nbsp;</div>
+	
+	<div>
+		<th:block th:if="${latestRateResponse == 'false'}">	
+		 	<div class="alert alert-danger">
+        		<strong>Произошла ошибка при выполнении следующего запроса к серверу валют:</strong> [[${ratesErrorResponse}]]
+        		<br/>
+        		<span>Проверьте соединение с Интернетом и параметры для данного сервера, которые были указаны в файле <b>application.properties</b>.</span>
+        		<a href="/" class="close" data-dismiss="alert" aria-label="close">×</a>
+    		</div>
+		</th:block>
+		<th:block th:if="${latestRateResponse == 'false' && giphyResponse == 'true'}">	
+		 	<div class="alert alert-success">
+        		<strong>Выполнено успешное получение gif-файла с сервера Giphy.</strong> [[${gifErrorResponse}]]
+        		<br/>
+        		<span>Но, так как курсы валюты не были получены, то сейчас отображается просто случайный gif-файл, полученный с сервера Giphy, из папки <b>random</b>, без указания тега 'rich' или 'broke'.</span>
+        		<a href="/" class="close" data-dismiss="alert" aria-label="close">×</a>
+    		</div>
+    	</th:block>
+		<br/>
+		<th:block th:if="${giphyResponse == 'false'}">	
+		 	<div class="alert alert-danger">
+        		<strong>Произошла ошибка при выполнении следующего запроса к серверу gif-файлов:</strong> [[${gifErrorResponse}]]
+        		<br/>
+        		<span>Проверьте соединение с Интернетом и параметры для данного сервера, которые были указаны в файле <b>application.properties</b>.</span>
+        		<a href="/" class="close" data-dismiss="alert" aria-label="close">×</a>
+    		</div>
+		</th:block>
+	</div>	
 	
 	<div class="text-center"><img th:src="${DownsizedMediumUrl}" /></div>
 	

@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.ui.Model;
 import ru.sangalov.exchangerates.entity.Rate;
+import ru.sangalov.exchangerates.entity.Rates;
 import ru.sangalov.exchangerates.entity.ResponseData;
 import ru.sangalov.exchangerates.service.ExchangeRatesService;
 import ru.sangalov.exchangerates.service.GiphyService;
@@ -55,7 +56,9 @@ public class MainControllerTests {
 		currencies.add("RUB");
 		currencies.add("GBP");
 		
-		Mockito.when(exchangeRateService.getAllRatesNames(currency, model)).thenReturn(currencies);
+		Rates rates = new Rates(); 
+		
+		Mockito.when(exchangeRateService.getCurrenciesNames(rates)).thenReturn(currencies);
 		
 		String url = "/";
 		mockMvc.perform(get(url)).andExpect(status().isOk());
@@ -80,7 +83,7 @@ public class MainControllerTests {
 		String tagName = "rich";
 		String DownsizedMediumUrl = "https://media4.giphy.com/media/9nekQ7djpoLF6Ci1n9/giphy.gif?cid=d78eb070a0a7cfdaa57df879b5ea9eaeb9658eed2f3c4ab2&rid=giphy.gif&ct=g";
 				
-		Mockito.when(giphyService.getGifUrl(tagName, model)).thenReturn(DownsizedMediumUrl);
+		Mockito.when(giphyService.getGifUrl(tagName, model, responseData)).thenReturn(DownsizedMediumUrl);
 		
 		
 		String url = "/findAllRates";

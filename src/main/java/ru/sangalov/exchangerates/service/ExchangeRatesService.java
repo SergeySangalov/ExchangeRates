@@ -56,9 +56,25 @@ public class ExchangeRatesService {
     		System.out.println("currencySelected = " + currencySelected);
     		System.out.println("currencyBase = " + currencyBase);
     		
+    		Rates latestRates = new Rates();
     		// Получение текущего (сегодняшнего) списка курсов валют
-    		ExchangeRatesCurrentResponse latestRatesResponse = exchangeRatesClient.getLatestRates(appId, currencyBase);
-			Rates latestRates = latestRatesResponse.getRates();
+    		try {
+    			System.out.println("Request latestRatesResponse started...");
+    			ExchangeRatesCurrentResponse latestRatesResponse = exchangeRatesClient.getLatestRates(appId, currencyBase);
+    			latestRates = latestRatesResponse.getRates();
+    			responseData.setLatestRateResponse("true");
+    			responseData.setRatesErrorResponse("");
+    			System.out.println("Request latestRatesResponse completed successfully.");
+    		}
+    		catch (Exception e) {
+    			System.out.println("Request latestRatesResponse ERROR: " + e.getMessage());
+    			List<String> currencies = getCurrenciesNames(latestRates);
+    			responseData.setLatestRateResponse("false");
+    			responseData.setRatesErrorResponse(e.getMessage());
+    			return currencies;
+    		}
+    		finally {
+    		}
 			
 			// Получение исторического (вчерашнего) списка курсов валют
 			ExchangeRatesCurrentResponse historicalRatesResponse = exchangeRatesClient.getHistoricalRates(getYesterdayDate(), appId, currencyBase);
@@ -168,14 +184,7 @@ public class ExchangeRatesService {
         
         return latestRatesMap;
 	}
-		
-	// Описание функции получения списка названий валют, запускаемой в самом начале приложения
-	public List<String> getAllRatesNames(@ModelAttribute Rate rate, Model model) throws JsonProcessingException {
-		ExchangeRatesCurrentResponse latestRatesResponse = exchangeRatesClient.getLatestRates(appId, currencyBase);
-		Rates latestRates = latestRatesResponse.getRates();
-		List<String> currencies = getCurrenciesNames(latestRates);
-		return currencies;
-	}
+
 }
 	
 

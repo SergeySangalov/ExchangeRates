@@ -3,22 +3,18 @@ package ru.sangalov.exchangerates.entity;
 public class ResponseData {
 	
 	String localDateNow;
-	
 	String localDateYesterday;
-	
 	private String currencySelected;
-	
 	private String currencyBase;
-	
 	private Double latestRateSelected;
-	
 	private Double latestRateBase;
-	
 	private Double historicalRateSelected;
-	
 	private Double historicalRateBase;
-	
 	private String tagName;
+	private String latestRateResponse;
+	private String ratesErrorResponse;
+	private String giphyResponse;
+	private String gifErrorResponse;
 	
 	
 	public ResponseData() {
@@ -26,7 +22,7 @@ public class ResponseData {
 
 	public ResponseData(String localDateNow, String localDateYesterday, String currencySelected, String currencyBase,
 			Double latestRateSelected, Double latestRateBase, Double historicalRateSelected, Double historicalRateBase,
-			String tagName) {
+			String tagName, String latestRateResponse, String ratesErrorResponse, String giphyResponse, String gifErrorResponse) {
 		this.localDateNow = localDateNow;
 		this.localDateYesterday = localDateYesterday;
 		this.currencySelected = currencySelected;
@@ -36,6 +32,10 @@ public class ResponseData {
 		this.historicalRateSelected = historicalRateSelected;
 		this.historicalRateBase = historicalRateBase;
 		this.tagName = tagName;
+		this.latestRateResponse = latestRateResponse;
+		this.ratesErrorResponse = ratesErrorResponse;
+		this.giphyResponse = giphyResponse;
+		this.gifErrorResponse = gifErrorResponse;
 	}
 
 	public String getLocalDateNow() {
@@ -108,6 +108,38 @@ public class ResponseData {
 
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
+	}
+
+	public String getLatestRateResponse() {
+		return latestRateResponse;
+	}
+
+	public void setLatestRateResponse(String latestRateResponse) {
+		this.latestRateResponse = latestRateResponse;
+	}
+
+	public String getRatesErrorResponse() {
+		return ratesErrorResponse;
+	}
+
+	public void setRatesErrorResponse(String ratesErrorResponse) {
+		this.ratesErrorResponse = ratesErrorResponse;
+	}
+
+	public String getGiphyResponse() {
+		return giphyResponse;
+	}
+
+	public void setGiphyResponse(String giphyResponse) {
+		this.giphyResponse = giphyResponse;
+	}
+
+	public String getGifErrorResponse() {
+		return gifErrorResponse;
+	}
+
+	public void setGifErrorResponse(String gifErrorResponse) {
+		this.gifErrorResponse = gifErrorResponse;
 	}
 	
 }
